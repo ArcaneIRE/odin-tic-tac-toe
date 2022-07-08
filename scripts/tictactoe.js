@@ -5,8 +5,14 @@ const gameBoard = (() => {
 
     const renderBoard = () =>  {
         boardElem.innerHTML = '';
-        board.forEach(cell => {
-            boardElem.innerHTML += `<div>${cell}</div>`;
+        board.forEach((contents, index) => {
+            let newCell = document.createElement('div');
+            newCell.textContent = contents;
+            newCell.dataset.index = index;
+            newCell.addEventListener('click', (e) => {
+                gameController.makeMove(e.target.dataset.index);
+            })
+            boardElem.appendChild(newCell);
         });
     };
     const makeMove = (playerToken, index) => {
