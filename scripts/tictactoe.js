@@ -1,6 +1,6 @@
 const gameBoard = (() => {
     const emptyBoard = ['', '', '', '', '', '', '', '', ''];
-    let board = emptyBoard;
+    let board = [...emptyBoard];
     const boardElem = document.querySelector('#board');
 
     const renderBoard = () =>  {
@@ -14,7 +14,7 @@ const gameBoard = (() => {
         renderBoard();
     };
     const resetBoard = () => {
-        board = emptyBoard;
+        board = [...emptyBoard];
         renderBoard();
     };
     const getBoard = () => {
