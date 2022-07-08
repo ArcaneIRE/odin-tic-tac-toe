@@ -1,0 +1,69 @@
+:root {
+    --card-background: #EEE;
+    --card-background-dark: rgb(214, 214, 214);
+    --card-background-darkest: rgb(143, 143, 143);
+    --dark-grey: rgb(41, 41, 41);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    height: 100vh;
+    width: min(90vw, 500px);
+    margin: 0 auto;
+    color: var(--dark-grey);
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 800% 800%;
+	animation: gradient 30s ease infinite;
+}
+
+@keyframes gradient {
+	0% {background-position: 0% 50%;}
+	50% {background-position: 100% 50%;}
+	100% {background-position: 0% 50%;}
+}
+
+header {
+    margin: 1rem 0 2rem 0;
+    padding: .5rem 2rem;
+    border-radius: 1rem;
+    background: var(--card-background);
+}
+
+header h1{
+    margin: 0;
+    font-size: calc(1.5rem + 1vw);
+}
+
+#board-card {
+    box-sizing: border-box;
+    width: 100%;
+    background: var(--card-background);
+    border-radius: 1.5rem;
+    overflow: hidden;
+}
+
+#board {
+    display: grid;
+    grid: 1fr 1fr 1fr / 1fr 1fr 1fr;
+    aspect-ratio: 1;
+    background: var(--dark-grey);
+    gap: 0.4rem;
+}
+
+#board div {
+    display: grid;
+    place-content: center;
+    background: var(--card-background);
+    cursor: pointer;
+}
+
+#board div:hover {
+    background-color: var(--card-background-dark);
+}
+
+#board div:active {
+    background-color: var(--card-background-darkest);
+}
