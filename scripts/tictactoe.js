@@ -23,3 +23,5 @@ const gameBoard = (() => {
 
     return {renderBoard, makeMove, resetBoard, getBoard};
 })();
+
+const player = (name) => {return {name}};
