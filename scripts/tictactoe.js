@@ -80,3 +80,5 @@ const gameController = (() => {
 
     return {startGame, makeMove, validateBoard};
 })();
+
+gameController.startGame();
