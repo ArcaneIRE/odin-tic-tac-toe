@@ -78,7 +78,7 @@ const gameController = (() => {
         return false;
     }
 
-    return {startGame, makeMove, validateBoard};
+    return {startGame, makeMove};
 })();
 
 gameController.startGame();
