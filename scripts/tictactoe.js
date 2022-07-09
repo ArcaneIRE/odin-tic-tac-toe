@@ -29,7 +29,7 @@ const gameBoard = (() => {
         return board;
     };
 
-    return {renderBoard, makeMove, resetBoard, getBoard};
+    return {makeMove, resetBoard, getBoard};
 })();
 
 const player = (name) => {return {name}};
