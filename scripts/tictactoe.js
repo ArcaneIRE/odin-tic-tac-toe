@@ -59,8 +59,8 @@ const gameController = (() => {
     const evaluateBoard = (board) => {
         // Horizontals
         for (let i = 0; i < 3; i++) {
-            if ((board[i*3] === board[(i*3)+1] && board[i] === board[(i*3)+2])
-                && board[i] !== '') {
+            if ((board[i*3] === board[(i*3)+1] && board[i*3] === board[(i*3)+2])
+                && board[i*3] !== '') {
                 return players[currentTurn];
             }
         }
