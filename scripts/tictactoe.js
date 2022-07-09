@@ -45,37 +45,67 @@ const gameController = (() => {
     }
     const makeMove = (index) => {
         if (gameBoard.makeMove(players[currentTurn].name, index)) {
-            if(validateBoard(gameBoard.getBoard())) {
-                console.log(`win for ${players[currentTurn].name}`);
+            let result = evaluateBoard(gameBoard.getBoard());
+            if (result === false) {
+                nextTurn();
+            } else {
+                endGame(result);
             }
-            nextTurn();
         }
     }
     const nextTurn = () => {
         currentTurn = (currentTurn + 1) % 2;
     }
-    const validateBoard = (board) => {
+    const evaluateBoard = (board) => {
         // Horizontals
         for (let i = 0; i < 3; i++) {
             if ((board[i*3] === board[(i*3)+1] && board[i] === board[(i*3)+2])
                 && board[i] !== '') {
-                return true;
+                return players[currentTurn];
             }
         }
         // Verticals
         for (let i = 0; i < 3; i++) {
             if ((board[i] === board[i+3] && board[i] === board[i+6])
                 && board[i] !== '') {
-                return true;
+                    return players[currentTurn];
             }
         }
         // Diagonals
         if (((board[0] === board[4] && board[0] === board[8])
             || (board[2] === board[4] && board[0] === board[6]))
             && board[4] !== '') {
-            return true;
+                return players[currentTurn];
+        }
+        // Draw
+        if (!(board.includes(''))){
+            return 'draw';
         }
         return false;
+    }
+    const endGame = (result) => {
+        document.body.insertAdjacentHTML('beforeend', `
+        <div id="result-modal-root" class="modal">
+            <div id="result-modal-content" class="modal-content">
+                <div class="modal-header">
+                    <h2>${result.name} Wins!</h2>
+                    <span id="result-modal-close" class="modal-close">✖</span>
+                </div>
+            </div>
+        </div>`);
+
+        const resultRoot = document.querySelector('#result-modal-root');
+        resultRoot.addEventListener('click', () => {
+            startGame();
+            resultRoot.remove();
+        });
+        document.querySelector('#result-modal-close').addEventListener('click', () => {
+            startGame();
+            resultRoot.remove();
+        });
+        document.querySelector('#result-modal-content').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
     }
 
     return {startGame, makeMove};
