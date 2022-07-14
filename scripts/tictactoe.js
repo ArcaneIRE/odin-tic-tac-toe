@@ -115,7 +115,7 @@ const gameController = (() => {
         }
         // Diagonals
         if (((board[0] === board[4] && board[0] === board[8])
-            || (board[2] === board[4] && board[0] === board[6]))
+            || (board[2] === board[4] && board[2] === board[6]))
             && board[4] !== '') {
                 return players[currentTurn];
         }
