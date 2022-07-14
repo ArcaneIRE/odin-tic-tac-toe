@@ -10,7 +10,6 @@ body {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    height: 100vh;
     width: min(90vw, 500px);
     margin: 0 auto;
     color: var(--dark-grey);
