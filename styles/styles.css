@@ -150,6 +150,11 @@ header h1{
     border-bottom: 1px solid rgb(22, 22, 22);
     border-radius: .2rem;
     background-color: var(--card-background-dark);
+    cursor: pointer;
+}
+
+.player-name:focus {
+    outline: none;
 }
 
 .player-tokens {
@@ -175,4 +180,9 @@ header h1{
 
 .player-token.current {
     outline: 2px solid rgba(0, 0, 255, 0.541);
+}
+
+.player.current .player-name {
+    transition: scale .5s;
+    scale: 1.2;
 }

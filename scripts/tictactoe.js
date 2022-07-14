@@ -73,7 +73,9 @@ const player = (id) => {
     });
     const getToken = () => token;
 
-    return {getToken, getName};
+    const getRoot = () => document.querySelector(`#${id}`);
+
+    return {getToken, getName, getRoot};
 };
 
 const gameController = (() => {
@@ -84,6 +86,7 @@ const gameController = (() => {
         players = [player('player1'), player('player2')];
         gameBoard.resetBoard();
         currentTurn = Math.round(Math.random());
+        nextTurn();
     }
     const makeMove = (index) => {
         if (gameBoard.makeMove(players[currentTurn], index)) {
@@ -97,6 +100,8 @@ const gameController = (() => {
     }
     const nextTurn = () => {
         currentTurn = (currentTurn + 1) % 2;
+        players[(currentTurn + 1) % 2].getRoot().classList.remove('current');
+        players[currentTurn].getRoot().classList.add('current');
     }
     const evaluateBoard = (board) => {
         // Horizontals
