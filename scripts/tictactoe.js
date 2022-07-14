@@ -5,9 +5,13 @@ const gameBoard = (() => {
 
     const renderBoard = () =>  {
         boardElem.innerHTML = '';
-        board.forEach((contents, index) => {
+        board.forEach((content, index) => {
             let newCell = document.createElement('div');
-            newCell.textContent = contents;
+            if (content === '') {
+                newCell.textContent = content
+            } else {
+                newCell.textContent = content.getToken();
+            }
             newCell.dataset.index = index;
             newCell.addEventListener('click', (e) => {
                 gameController.makeMove(e.target.dataset.index);
@@ -15,9 +19,9 @@ const gameBoard = (() => {
             boardElem.appendChild(newCell);
         });
     };
-    const makeMove = (playerToken, index) => {
+    const makeMove = (player, index) => {
         if (board[index] !== '') {return false};
-        board[index] = playerToken;
+        board[index] = player;
         renderBoard();
         return true;
     };
@@ -29,22 +33,60 @@ const gameBoard = (() => {
         return board;
     };
 
-    return {makeMove, resetBoard, getBoard};
+    return {makeMove, resetBoard, getBoard, renderBoard};
 })();
 
-const player = (name) => {return {name}};
+const player = (id) => {
+    // Name
+    const nameInput = document.querySelector(`#${id} .player-name`);
+    let name = document.querySelector(`#${id} .player-name`).value;
+    const setName = (newName) => {
+        if (newName === "") {
+            name = 'Anonymous';
+        } else {
+            name = newName;
+        }
+    };
+    let timeout = null;
+    nameInput.addEventListener('keyup', () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(setName(nameInput.value), 500);
+    });
+    setName(nameInput.value);
+    const getName = () => name;
+
+    // Token
+    let token = document.querySelector(`#${id} .player-token.current`).textContent;
+    const tokenBar = Array.from(document.querySelectorAll(`#${id} .player-token`));
+    const tokenBarClear = () => {
+        tokenBar.forEach(option => {
+            option.classList.remove('current');
+        });
+    };
+    tokenBar.forEach(tokenOption => {
+        tokenOption.addEventListener('click', () => {
+            tokenBarClear();
+            tokenOption.classList.add('current');
+            token = tokenOption.textContent;
+            gameBoard.renderBoard();
+        });
+    });
+    const getToken = () => token;
+
+    return {getToken, getName};
+};
 
 const gameController = (() => {
     let players = [];
     let currentTurn;
 
     const startGame = () => {
-        players = [player('Player1'), player('Player2')]
+        players = [player('player1'), player('player2')];
         gameBoard.resetBoard();
         currentTurn = Math.round(Math.random());
     }
     const makeMove = (index) => {
-        if (gameBoard.makeMove(players[currentTurn].name, index)) {
+        if (gameBoard.makeMove(players[currentTurn], index)) {
             let result = evaluateBoard(gameBoard.getBoard());
             if (result === false) {
                 nextTurn();
@@ -88,7 +130,7 @@ const gameController = (() => {
         <div id="result-modal-root" class="modal">
             <div id="result-modal-content" class="modal-content">
                 <div class="modal-header">
-                    <h2>${result.name} Wins!</h2>
+                    <h2>${result.getName()} Wins!</h2>
                     <span id="result-modal-close" class="modal-close">✖</span>
                 </div>
             </div>

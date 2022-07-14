@@ -62,6 +62,7 @@ header h1{
     place-content: center;
     background: var(--card-background);
     cursor: pointer;
+    font-size: 2.5rem;
 }
 
 #board div:hover {
@@ -118,4 +119,61 @@ header h1{
 .modal-close:focus {
     color: black;
     background-color: rgb(141, 141, 141);;
+}
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: .5rem;
+    margin: 2rem 0;
+    padding: 1rem 0.2rem;
+    border-radius: 1rem;
+    background: var(--card-background);
+}
+
+.player {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.player-name {
+    height: 2.4rem;
+    margin: 0 0;
+    padding: 0 0.5rem;
+    font-size: 1.3rem;
+    width: 7rem;
+    text-align: center;
+    background-color: inherit;
+    border: none;
+    border-bottom: 1px solid rgb(22, 22, 22);
+    border-radius: .2rem;
+    background-color: var(--card-background-dark);
+}
+
+.player-tokens {
+    display: flex;
+    gap: .5rem;
+    font-size: 1.3rem;
+}
+
+.player-token {
+    padding: .6rem;
+    border-radius: .5rem;
+    cursor: pointer;
+    background-color: var(--card-background-dark);
+}
+
+.player-token:hover {
+    background-color: var(--card-background-darkest);
+}
+
+.player-token:active {
+    scale: 0.95;
+}
+
+.player-token.current {
+    outline: 2px solid rgba(0, 0, 255, 0.541);
 }
